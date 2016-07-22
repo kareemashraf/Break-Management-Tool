@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2016 at 06:26 AM
+-- Generation Time: Jul 22, 2016 at 11:59 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -19,6 +19,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `btm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `breaks`
+--
+
+CREATE TABLE `breaks` (
+  `id` int(11) NOT NULL,
+  `username` text NOT NULL,
+  `time` text NOT NULL,
+  `ftid` text NOT NULL,
+  `pims` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
