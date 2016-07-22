@@ -53,11 +53,20 @@ class Welcome extends CI_Controller {
 
 	public function home()
 	{
+
 		$session  = $this->session->userdata('logged_in');
 		if (!empty($session)) {
 			$sessions  = array('username' => $session[0] );
-			//echo "<pre>"; var_dump($sessions);
-			$this->load->view('home',$sessions);
+			
+			$username  = $session[0]->username;
+		   			 	   $this->load->model('loginmodel');
+			$times 		 = $this->loginmodel->times($username);
+			$times_rows  = $this->loginmodel->times_rows();
+
+			$data['sessions']  = $sessions;
+			$data['times']	   = $times;	
+			$data['times_rows']= $times_rows;
+			$this->load->view('home',$data);
 		} else {
 			$this->load->view('login');
 		}
@@ -70,7 +79,63 @@ class Welcome extends CI_Controller {
 		$ftid	  = $this->input->post('ftid');
 		$pims	  = $this->input->post('pims');
 
-		die($username." ".$time." ".$ftid." ".$pims);	
+
+			$this->load->model('loginmodel');
+
+			$result  = $this->loginmodel->check($username, $time, $ftid, $pims);	
+			if ($result == 0) {
+
+			$result_number  = $this->loginmodel->exceed($username, $time, $ftid, $pims);
+
+				if ($result_number > 3) {
+					die("Exceeded Maximum");
+				} 
+				else 
+				{
+					$add = $this->loginmodel->add($username, $time, $ftid, $pims);
+					die('Inserted');
+				}
+			}
+			elseif ($result == 1) {
+
+				$remove = $this->loginmodel->remove($username, $time, $ftid, $pims);
+				die('Deleted');
+			}			
+	}
+
+
+
+
+	public function alert(){
+
+			$session   		= $this->session->userdata('logged_in');
+			if (!empty($session)) {
+				$sessions  = array('username' => $session[0] );
+		    }
+			
+			$username  = $session[0]->username;
+
+		    $this->load->model('loginmodel');
+			$timesarray 	   = $this->loginmodel->times($username);
+
+			$json			   = json_encode($timesarray);
+			$json2 			   = str_replace("[{", "", $json);
+			$json3 			   = str_replace("}]", "", $json2);
+			$json4 			   = str_replace("{", "", $json3);
+			$json5 			   = str_replace("}", "", $json4);
+			$json6 			   = str_replace('"time":', "", $json5);
+			$json6 			   = str_replace('"', '', $json6);
+			
+			$dbtime		   	   = explode(",", $json6);
+			
+			$time =  date("g:i"); //i is for minutes leading by zero
+			
+			if (in_array($time, $dbtime)) {
+				die('break');
+			} else {
+				die(var_dump($dbtime));
+			}
+			
 	}
 
 }
