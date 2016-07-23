@@ -323,6 +323,44 @@ $(document).ready(function(){
   
 
   setInterval(function(){ 
+
+    function notifyMe() {
+      
+      var icon  = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/280px-Orange_logo.svg.png'
+      var theBody = 'Finally its your break Time :)'
+      
+      var options = {
+              body: theBody,
+              icon: icon
+        }
+
+        // Let's check if the browser supports notifications
+        if (!("Notification" in window)) {
+          alert("This browser does not support system notifications");
+        }
+
+        // Let's check whether notification permissions have already been granted
+        else if (Notification.permission === "granted") {
+          
+          // If it's okay let's create a notification
+          var notification = new Notification("Take a Break!",options);
+
+        }
+
+        // Otherwise, we need to ask the user for permission
+        else if (Notification.permission !== 'denied') {
+          Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+              var notification = new Notification("Take a Break!",options);
+            }
+          });
+        }
+
+        // Finally, if the user has denied notifications and you 
+        // want to be respectful there is no need to bother them any more.
+  }
+
      var d    = new Date()
      
       $.ajax({
@@ -332,14 +370,14 @@ $(document).ready(function(){
                       success: function(result) {
                         console.log(result)
                         if (result == 'break') { 
-                          alert('This is your Break Time!') 
-                          
+                          alert('This is your Break Time!')
+                          notifyMe();
                         }
                         
                       }  
                 });
 
-  }, 3000);
+  }, 1000);
 
 });
   </script>
