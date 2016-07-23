@@ -361,7 +361,7 @@ $(document).ready(function(){
         // want to be respectful there is no need to bother them any more.
   }
 
-     var d    = new Date()
+   var d    = new Date()
      
       $.ajax({
                       type: 'POST',
@@ -369,9 +369,14 @@ $(document).ready(function(){
                       data: {times: d.getHours()+":"+d.getMinutes()},
                       success: function(result) {
                         console.log(result)
+                      
                         if (result == 'break') { 
-                          alert('This is your Break Time!')
-                          notifyMe();
+                          var seconds = d.getSeconds()
+                          if (seconds == '00') {
+                            notifyMe()
+                            alert('This is your Break Time');
+                          }
+                          
                         }
                         
                       }  
