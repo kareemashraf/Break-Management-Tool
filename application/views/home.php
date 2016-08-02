@@ -14,6 +14,7 @@
   </style>
 </head>
 <body>
+<a href="<?php echo site_url('Welcome/admin');?>">Admin</a>
 <div id="clock"></div>
 <div class="container" style="margin-top: 100px;">
   <h2>Select your Shift  <?php  
@@ -374,7 +375,7 @@ $(document).ready(function(){
                           var seconds = d.getSeconds()
                           if (seconds == '00') {
                             notifyMe()
-                            alert('This is your Break Time');
+                            alert('This is your Break Time!');
                           }
                           
                         }
