@@ -11,10 +11,12 @@
   body .btn {
     width : 200px;
   }
+
+  
   </style>
 </head>
 <body>
-<a href="<?php echo site_url('Welcome/admin');?>">Admin</a>
+
 <div id="clock"></div>
 <div class="container" style="margin-top: 100px;">
   <h2>Select your Shift  <?php  
@@ -34,9 +36,12 @@
     $pims   = $sessions["username"]->pims;
     $username =  explode(".", $sessions["username"]->username);
     $username1= ucfirst($username[0]);
-  echo "<a style='color: blue;'>".$username1."</a> for ".date("l")." ".date("M-d")." <i id='notifier'></i> </br>"; 
+  echo "<a style='color: blue;'>".$username1."</a> for ".date("l")." ".date("M-d")." <i id='notifier'></i> "; 
   }
 ?>
+  
+    <a class="pull-right" href="<?php echo site_url('Welcome/admin');?>">Admin</a>
+
 </h2> 
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
@@ -387,6 +392,7 @@ $(document).ready(function(){
 
 });
   </script>
+                
 </footer>
 
 </html>

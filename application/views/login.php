@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  footer .footer{
+    position: absolute;
+    bottom: 0;
+    width: 644px;
+    height: 50px;
+    margin: 0 auto;
+  }
+  </style>
 </head>
 <body>
 
@@ -43,4 +52,11 @@
 </div>
 
 </body>
+<footer>
+  <center>
+    <div class="footer pull-center">
+      <p>Copyright &copy; Orange Business Services, IT Helpdesk 2016 (Break Management Tool)</p>
+    </div>
+  </center>
+</footer>
 </html>

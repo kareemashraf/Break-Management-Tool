@@ -17,6 +17,12 @@
     <!-- Custom CSS -->
     <link href="<?php  echo base_url('admin'); ?>/css/small-business.css" rel="stylesheet">
 
+    <style type="text/css">
+    body #icon {
+        width: 60px;
+    }
+    </style>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,6 +30,38 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+<!-- Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+         ['Shift', '7', '8', '9', '10', '11', 'test'],
+         ['Agent/05',  165,      938,         522,             998,           450,      614.6],
+         ['Agent/06',  135,      1120,        599,             1268,          288,      682],
+         ['Agent/07',  157,      1167,        587,             807,           397,      623],
+         ['Agent/08',  139,      1110,        615,             968,           215,      609.4],
+         ['Agent/09',  136,      691,         629,             1026,          366,      569.6]
+      ]);
+
+    var options = {
+      title : 'Daily Shift Break Report',
+      vAxis: {title: 'hours'},
+      hAxis: {title: 'shift'},
+      seriesType: 'bars',
+      series: {5: {type: 'line'}}
+    };
+
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+    </script>
+<!-- Charts -->
 </head>
 
 <body>
@@ -40,20 +78,23 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img src="http://placehold.it/150x50&text=Logo" alt="">
+                    <img src="<?php  echo base_url('img/orange.png'); ?>" id="icon">
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Agents Management</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#">Breaks taken</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <a style="font-size: x-large;" href="#">BETA Version</a>
                     </li>
                 </ul>
             </div>
@@ -68,12 +109,13 @@
         <!-- Heading Row -->
         <div class="row">
             <div class="col-md-8">
-                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
+                <!-- <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt=""> -->
+                <div id="chart_div" style="width: 800px; height: 400px;"></div>
             </div>
             <!-- /.col-md-8 -->
             <div class="col-md-4">
-                <h1>Business Name or Tagline</h1>
-                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+                <h1>IT HelpDesk Break Managemet</h1>
+                <p>This is a test for BMT Admin portal, It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this Method according to your needs!</p>
                 <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
             </div>
             <!-- /.col-md-4 -->
@@ -120,7 +162,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Orange Business Services, IT Helpdesk 2016 (Break Management Tool)</p>
                 </div>
             </div>
         </footer>
