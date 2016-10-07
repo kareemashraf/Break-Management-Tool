@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2016 at 11:59 PM
+-- Generation Time: Oct 07, 2016 at 01:40 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -38,6 +38,26 @@ CREATE TABLE `breaks` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shifts`
+--
+
+CREATE TABLE `shifts` (
+  `id` int(11) NOT NULL,
+  `user_name` text NOT NULL,
+  `shift` int(11) NOT NULL,
+  `month` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shifts`
+--
+
+INSERT INTO `shifts` (`id`, `user_name`, `shift`, `month`) VALUES
+(1, 'kareem.ashraf', 7, 'September');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -61,6 +81,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `ftid`, `pims`) VALUES
 --
 
 --
+-- Indexes for table `shifts`
+--
+ALTER TABLE `shifts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -70,6 +96,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `shifts`
+--
+ALTER TABLE `shifts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --

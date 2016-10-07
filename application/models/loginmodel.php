@@ -57,6 +57,25 @@ class Loginmodel extends CI_Model
 
 		return $query->num_rows();
 	}
+
+	function add_agents($agents_name, $shift){
+		$query = $this->db->query('INSERT INTO shifts (user_name,shift, month) VALUES ("'.$agents_name.'","'.$shift.'", MONTHNAME(CURDATE()) )  ');
+			
+	}
+
+	function delete_agents($agents_name){
+
+		$query = $this->db->query(' DELETE FROM shifts WHERE user_name = "'.$agents_name.'" AND month = MONTHNAME(CURDATE()) ');
+		
+	}
+
+	function get_agents_shifts(){
+		$query  = $this->db->query('SELECT * FROM shifts WHERE month = MONTHNAME(CURDATE()) ');
+		return  $query->result_array();
+			    
+	}
+
+
 }
 
 ?>

@@ -8,9 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <title>Small Business - Start Bootstrap Template</title>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$('#example').DataTable();
+		} );
+    </script>
 
+    <title>Admin</title>
+	<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="<?php  echo base_url('admin'); ?>/css/bootstrap.min.css" rel="stylesheet">
 
@@ -116,7 +123,7 @@
             <div class="col-md-4">
                 <h1>IT HelpDesk Break Managemet</h1>
                 <p>This is a test for BMT Admin portal, It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this Method according to your needs!</p>
-                <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
+                <a class="btn btn-primary btn-lg" href="#">Agents in Action!</a>
             </div>
             <!-- /.col-md-4 -->
         </div>
@@ -127,8 +134,58 @@
         <!-- Call to Action Well -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="well text-center">
-                    This is a well that is a great spot for a business tagline or phone number for easy access!
+                <div class="well ">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>shift</th>
+                <th>Month</th>
+                <th>Add/Edit</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Shift</th>
+                <th>Month</th>
+            </tr>
+        </tfoot>
+        <tbody>
+        	<tr>
+                <td><input type="text" name="agents_name" id="agent" placeholder="agents name"></td>
+                <td><select name="shift" style="width: 300px;" class="form-control" id="shift">
+                	<option value=""> Please Select a Shift </option>
+                	<option value="7"> from 7 to 4 </option>
+                	<option value="8"> from 8 to 5 </option>
+                	<option value="9"> from 9 to 6 </option>
+                	<option value="10"> from 10 to 7 </option>
+                	<option value="11"> from 11 to 8 </option>
+                </select></td>
+                <td><h3><?php echo date('M'); ?></h3></td>
+                <td><button name="add" id="add" class="btn btn-primary">ADD</button></td>
+            </tr>
+            <?php
+
+	            foreach ($results as $result) {
+	            	echo "<tr>";
+	            	echo "<td>";
+	            	echo "<div id='".$result['user_name']."'>".$result['user_name']."</div>";
+	            	echo "</td>";
+	            	echo "<td>";
+	            	echo "<div id='".$result['shift']."'>".$result['shift']."</div>";
+	            	echo "</td>";
+	            	echo "<td>";
+	            	echo "<div id='".$result['month']."'>".$result['month']."</div>";
+	            	echo "</td>";
+	            	echo "<td>";
+	            	echo "<button id='".$result['user_name']."'  class='btn btn-danger delete'>Delete</button>";
+	            	echo "</td>";
+	            	echo "</tr>";
+	            }
+            ?>
+        </tbody>
+    </table>
                 </div>
             </div>
             <!-- /.col-lg-12 -->
@@ -175,6 +232,64 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php  echo base_url('admin'); ?>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+	  <script>
+		  $(function(){
+		    $("#example").dataTable();
+		  })
+	  </script>
+
+	  <script type="text/javascript">
+
+	  $(function(){
+		    
+	  		// when the add button is pressed
+		  	$( "#add" ).click(function() {
+		  		var agent  = $("#agent").val()
+	 			var shift  = $("#shift").val()
+
+		  				$.ajax({
+	                      type: 'POST',
+	                      url: '<?php echo site_url().'/welcome/add_agents' ?>', 
+	                      data: {agent: agent,shift: shift},
+	                      success: function(result) {
+	                         alert(result)
+	                         location.reload(); 
+	                        }
+	              		});
+		  			
+
+			});
+		  	//---------------------------->
+		  	
+		  	// when the Delete button is pressed 
+
+		  	$( ".delete" ).click(function() {
+		  		var agent  = $(this).attr("id");
+
+		  		var r = confirm('are you sure you want to delete '+agent+' Shift ?' );
+						if (r == true) {
+							    $.ajax({
+			                      type: 'POST',
+			                      url: '<?php echo site_url().'/welcome/delete_agents' ?>', 
+			                      data: {agent: agent},
+			                      success: function(result) {
+			                         location.reload(); 
+			                        }
+		              			});
+
+						} else {
+						   // in case the user pressed Cancel
+						} 
+		  
+			});
+			//------------------------------>
+
+
+		})
+	  
+	  </script>
 
 </body>
 

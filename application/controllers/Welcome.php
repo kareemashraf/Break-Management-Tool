@@ -139,7 +139,34 @@ class Welcome extends CI_Controller {
 	}
 
 	public function admin(){
-		$this->load->view('admin');
+		           $this->load->model('loginmodel');
+		$results = $this->loginmodel->get_agents_shifts();
+		
+		$data['results'] = $results;
+		$this->load->view('admin',$data);
+	}
+
+	public function add_agents(){
+		$agents_name = $this->input->post('agent');
+		$shift	 	 = $this->input->post('shift');
+
+		if (!empty($agents_name)) {
+			$this->load->model('loginmodel');
+		$result = $this->loginmodel->add_agents($agents_name, $shift);
+		die($agents_name." has been added");
+		}
+		else{
+			die("Please Enter the Agent name and the shift");
+		}
+		
+	}
+
+	public function delete_agents(){
+		$agents_name = $this->input->post('agent');
+
+		$this->load->model('loginmodel');
+		$result = $this->loginmodel->delete_agents($agents_name);
+
 	}
 
 }
